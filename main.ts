@@ -11,7 +11,7 @@
 // The program runs twice in the grader and both runs write the same bytes:
 // the copies are verbatim and buildDossier is deterministic over the tree.
 
-import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-game.ts';
@@ -41,3 +41,24 @@ writeFileSync(
     game_path_max_bytes: 1000,
   }),
 );
+
+// Verify the hand-in before reporting success: re-read dossier.json, parse
+// it as JSON, and require a non-empty top-level object. Any failure here
+// means the judge would be handed a broken summary, so fail loudly instead.
+const dossierPath = join(out, 'dossier.json');
+try {
+  const raw = readFileSync(dossierPath, 'utf8');
+  if (raw.trim().length === 0) {
+    throw new Error('dossier.json is empty');
+  }
+  const parsed = JSON.parse(raw);
+  if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new Error('dossier.json top level is not a JSON object');
+  }
+  if (Object.keys(parsed).length === 0) {
+    throw new Error('dossier.json top-level object has no fields');
+  }
+} catch (err) {
+  console.error(`main.ts: dossier verification failed for ${dossierPath}: ${err.message}`);
+  process.exit(1);
+}
