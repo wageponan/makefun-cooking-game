@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warung Nusantara - Cooking Game</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="awning" aria-hidden="true"></div>
+
+<header class="hud" id="hud">
+  <div class="brand">
+    <h1>Warung Nusantara</h1>
+    <p>Masak, susun, sajikan - sebelum pelanggan pergi.</p>
+  </div>
+  <div class="stat"><span class="stat-label">Sisa Hari</span><strong id="day-time">150 detik</strong>
+    <div class="day-track"><div id="day-bar"></div></div>
+  </div>
+  <div class="stat"><span class="stat-label">Skor</span><strong id="score">0</strong></div>
+  <div class="stat"><span class="stat-label">Koin</span><strong id="coins">0</strong></div>
+  <div class="stat"><span class="stat-label">Terjual</span><strong id="served">0</strong></div>
+  <div class="stat"><span class="stat-label">Reputasi</span><span id="hearts"></span></div>
+  <div class="stat combo-stat"><span id="combo"></span></div>
+  <button id="pause-btn" type="button">Jeda (P)</button>
+</header>
+
+<main class="layout">
+  <section class="board" aria-label="Papan pesanan">
+    <h2>Papan Pesanan</h2>
+    <div id="orders"></div>
+    <div class="recipe-book">
+      <h3>Buku Resep</h3>
+      <ul>
+        <li><b>Nasi Goreng</b> - Nasi, Kecap, Telur, Ayam, Bawang Goreng</li>
+        <li><b>Mie Goreng</b> - Mie, Kecap, Sayur, Telur, Bawang Goreng</li>
+        <li><b>Sate Ayam</b> - Ayam, Bumbu Kacang, Sambal, Bawang Goreng</li>
+        <li><b>Bakso Sapi</b> - Bakso, Mie, Kuah, Sayur, Bawang Goreng</li>
+        <li><b>Es Teh Manis</b> - Teh, Es Batu</li>
+        <li><b>Rendang Sapi</b> - Nasi, Daging, Sambal, Sayur, Bawang Goreng (menu siang)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="kitchen" aria-label="Dapur">
+    <div class="pass">
+      <div class="plate-zone">
+        <h2>Meja Saji - <span id="plate-name">Pilih pesanan dulu</span></h2>
+        <div id="plate-layers" class="plate" title="Klik piring yang lengkap untuk menyajikan"></div>
+        <div id="recipe-steps" class="steps"></div>
+        <div class="pass-actions">
+          <button id="serve-btn" type="button" disabled>Sajikan (Spasi)</button>
+          <button id="trash-btn" type="button" disabled>Buang (Del)</button>
+        </div>
+      </div>
+      <p id="toast" class="toast" role="status" aria-live="polite"></p>
+    </div>
+    <h2 class="counter-title">Meja Bahan - klik sesuai urutan resep</h2>
+    <div id="stations" class="stations"></div>
+  </section>
+</main>
+
+<div id="start-screen" class="overlay">
+  <div class="panel">
+    <h2>Warung Nusantara</h2>
+    <p class="tagline">An Indonesian street-food cooking game. One stall, one cook, a whole day of hungry customers.</p>
+    <ol class="howto">
+      <li>Klik kartu di <b>Papan Pesanan</b> untuk memilih pesanan.</li>
+      <li>Klik bahan di meja sesuai <b>urutan resep</b> (atau tekan tombol angka 1-14).</li>
+      <li>Piring lengkap? Klik <b>Sajikan</b> sebelum kesabaran pelanggan habis.</li>
+      <li>Sajian cepat dapat tip. Tiga pelanggan pergi kecewa, warung tutup.</li>
+      <li>Hari berjalan 150 detik; makin sore makin ramai, dan Rendang Sapi hadir di menu siang.</li>
+    </ol>
+    <button id="start-btn" type="button">Buka Warung (Enter)</button>
+  </div>
+</div>
+
+<div id="pause-screen" class="overlay hidden">
+  <div class="panel">
+    <h2>Istirahat Sebentar</h2>
+    <p>Kompor tetap hangat. Pesanan menunggu.</p>
+    <button id="resume-btn" type="button">Lanjut Masak (P)</button>
+  </div>
+</div>
+
+<div id="over-screen" class="overlay hidden">
+  <div class="panel">
+    <h2>Warung Tutup</h2>
+    <p id="final-stats"></p>
+    <button id="restart-btn" type="button">Buka Lagi Besok (Enter)</button>
+  </div>
+</div>
+
+<script type="module" src="./src/game.js"></script>
+</body>
+</html>

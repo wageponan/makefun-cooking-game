@@ -1,0 +1,142 @@
+/* Warung Nusantara: a warm street-stall look. Cream paper, wood counters,
+   a red-and-white striped awning, everything drawn with CSS shapes. */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: #f3e7cf;
+  color: #33241a;
+}
+
+.awning {
+  height: 26px;
+  background: repeating-linear-gradient(90deg, #c1272d 0 46px, #fdf6e3 46px 92px);
+  border-bottom: 4px solid #7c1d20;
+}
+
+.hud {
+  display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+  padding: 10px 18px; background: #fff8ea; border-bottom: 3px solid #8a5a2b;
+}
+.brand h1 { margin: 0; font-size: 26px; letter-spacing: 0.5px; color: #7c1d20; }
+.brand p { margin: 2px 0 0; font-size: 13px; font-style: italic; color: #6d543a; }
+.stat { display: flex; flex-direction: column; min-width: 74px; }
+.stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #8a6b45; }
+.stat strong { font-size: 20px; }
+.day-track { width: 130px; height: 8px; background: #e3d3ae; border-radius: 4px; overflow: hidden; margin-top: 3px; }
+#day-bar { height: 100%; width: 100%; background: #57a639; transition: width 0.2s linear; }
+#hearts { display: inline-flex; gap: 4px; padding-top: 4px; }
+.heart {
+  width: 18px; height: 18px; background: #d62828; display: inline-block;
+  clip-path: path('M9 16 C3 11 1 8 1 5.5 C1 2.8 3 1 5.2 1 C6.8 1 8.2 1.8 9 3 C9.8 1.8 11.2 1 12.8 1 C15 1 17 2.8 17 5.5 C17 8 15 11 9 16 Z');
+}
+.heart.lost { background: #cbbfa5; }
+.combo-stat span { font-size: 18px; font-weight: bold; color: #c1272d; }
+#pause-btn {
+  margin-left: auto; padding: 8px 14px; font: inherit; cursor: pointer;
+  background: #8a5a2b; color: #fff8ea; border: none; border-radius: 6px;
+}
+
+.layout {
+  display: grid; grid-template-columns: 350px 1fr; gap: 16px;
+  padding: 16px 18px 24px; max-width: 1240px; margin: 0 auto;
+}
+.board h2, .kitchen h2 { margin: 0 0 10px; font-size: 19px; color: #7c1d20; }
+
+.order-card {
+  background: #fffdf4; border: 2px solid #d9c48f; border-radius: 10px;
+  padding: 10px 12px; margin-bottom: 10px; cursor: pointer;
+  box-shadow: 0 2px 0 rgba(120, 84, 40, 0.25);
+}
+.order-card.active { border-color: #c1272d; box-shadow: 0 0 0 2px #c1272d inset; }
+.order-head { display: flex; align-items: center; gap: 10px; }
+.face svg { width: 40px; height: 40px; display: block; }
+.order-title { display: flex; flex-direction: column; }
+.order-title strong { font-size: 17px; }
+.order-title small { color: #8a6b45; }
+.order-num { margin-left: auto; font-weight: bold; color: #8a6b45; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0; }
+.chip {
+  font-size: 12px; padding: 3px 8px; border-radius: 999px;
+  background: var(--fill); border: 1.5px solid var(--edge); color: #33241a;
+}
+.chip.done { opacity: 0.45; text-decoration: line-through; }
+.chip.next { outline: 2px dashed #c1272d; outline-offset: 1px; font-weight: bold; }
+.patience { height: 9px; background: #e9dcbc; border-radius: 5px; overflow: hidden; }
+.patience-fill { height: 100%; transition: width 0.15s linear; }
+.board-empty { font-style: italic; color: #8a6b45; }
+
+.recipe-book { background: #fff8ea; border: 2px dashed #b98d4f; border-radius: 10px; padding: 10px 14px; }
+.recipe-book h3 { margin: 0 0 6px; font-size: 15px; color: #7c1d20; }
+.recipe-book ul { margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.5; }
+
+.kitchen { background: linear-gradient(#fdf3d8, #f0dcb2); border: 3px solid #8a5a2b; border-radius: 12px; padding: 14px 16px; }
+.pass { display: flex; gap: 16px; align-items: flex-start; }
+.plate-zone { flex: 1; }
+.plate {
+  min-height: 118px; border-radius: 50%/38%; background: radial-gradient(ellipse at center, #ffffff 55%, #dfe4e6 100%);
+  border: 3px solid #b9c2c6; padding: 16px 30px; display: flex; flex-direction: column-reverse;
+  align-items: center; justify-content: center; gap: 3px; cursor: pointer;
+}
+.layer {
+  width: 72%; text-align: center; font-size: 13px; padding: 3px 0; border-radius: 999px;
+  background: var(--fill); border: 2px solid var(--edge);
+}
+.plate-hint { font-style: italic; color: #8a6b45; margin: 0; }
+.steps { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; min-height: 26px; }
+.step { font-size: 13px; padding: 3px 9px; border-radius: 6px; background: #fff8ea; border: 1px solid #d9c48f; }
+.step.done { opacity: 0.45; text-decoration: line-through; }
+.step.next { border-color: #c1272d; font-weight: bold; }
+.pass-actions { display: flex; gap: 10px; margin-top: 10px; }
+.pass-actions button {
+  font: inherit; padding: 9px 16px; border-radius: 8px; border: none; cursor: pointer;
+}
+#serve-btn { background: #57a639; color: white; font-weight: bold; }
+#serve-btn:disabled { background: #b9c2a8; cursor: default; }
+#trash-btn { background: #e3d3ae; color: #6d543a; }
+#trash-btn:disabled { opacity: 0.5; cursor: default; }
+.toast { min-width: 180px; max-width: 240px; font-size: 15px; margin: 6px 0 0; opacity: 0; transition: opacity 0.15s; }
+.toast.show { opacity: 1; }
+.toast.good { color: #38691f; font-weight: bold; }
+.toast.warn { color: #a86424; }
+.toast.bad { color: #c1272d; font-weight: bold; }
+
+.counter-title { margin-top: 16px !important; }
+.stations { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+.station {
+  font: inherit; background: #fff8ea; border: 2px solid #b98d4f; border-radius: 10px;
+  padding: 8px 4px 6px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px;
+  position: relative;
+}
+.station:hover { border-color: #c1272d; }
+.bowl {
+  width: 52px; height: 26px; border-radius: 6px 6px 40px 40px;
+  background: var(--fill); border: 2.5px solid var(--edge); display: block;
+}
+.station-name { font-size: 12.5px; text-align: center; line-height: 1.15; }
+.station-key {
+  position: absolute; top: 4px; right: 6px; font-size: 11px; color: #a08154;
+  border: 1px solid #d9c48f; border-radius: 4px; padding: 0 4px; background: #fffdf4;
+}
+.station.flash-good { animation: flashGood 0.35s; }
+.station.flash-bad { animation: flashBad 0.35s; }
+@keyframes flashGood { 0% { background: #bfe3ae; } 100% { background: #fff8ea; } }
+@keyframes flashBad { 0% { background: #f3b3b3; } 100% { background: #fff8ea; } }
+
+.overlay {
+  position: fixed; inset: 0; background: rgba(51, 30, 12, 0.72);
+  display: flex; align-items: center; justify-content: center; z-index: 10;
+}
+.overlay.hidden { display: none; }
+.panel {
+  background: #fff8ea; border: 4px solid #8a5a2b; border-radius: 14px;
+  max-width: 560px; width: calc(100% - 40px); padding: 26px 30px; text-align: center;
+}
+.panel h2 { margin: 0 0 8px; color: #7c1d20; font-size: 30px; }
+.panel .tagline { font-style: italic; color: #6d543a; }
+.howto { text-align: left; line-height: 1.55; font-size: 15px; }
+.panel button {
+  font: inherit; font-weight: bold; padding: 11px 22px; border: none; border-radius: 8px;
+  background: #c1272d; color: white; cursor: pointer; margin-top: 8px;
+}
